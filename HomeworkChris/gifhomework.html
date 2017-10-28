@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<head>
+  <meta charset="utf-8">
+  <title>MOVIE GIFS</title>
+
+  <div class="container">
+  <div class="jumbotron">
+    <h1>Film Gifs!</h1> 
+    <p>Welcome to my Movie Gifs Page! Click a film title to view various gifs related to it! There are various film generes listed from dramas to comedies and some horror! Enjoy!</p> 
+  </div>
+</div>
+</head>
+
+<body>
+  <div id="buttons">
+    
+    <button data-person="Star Wars">
+      Star Wars
+    </button>
+   
+  <button data-person="Back to the Future">
+      Back To the Future
+  </button>
+
+  <button data-person="John Wick">
+  John Wick
+  </button>
+
+  <button data-person="Bladerunner 2049">
+  Bladerunner 2049
+  </button>
+
+  <button data-person="The Matrix">
+  The Matrix
+  </button>
+
+  <button data-person="The Hateful Eight">
+  The Hateful Eight
+  </button>
+
+  <button data-person="Zoolander">
+  Zoolander
+  </button>
+
+  <button data-person="Harry Potter">
+  Harry Potter
+  </button>
+  
+  <button data-person="Mad Max Fury Road">
+  Mad Max Fury Road
+  </button>
+
+    <button data-person="Step Brothers">
+  Step Brothers
+  </button>
+
+     <button data-person="Freddy vs Jason">
+      Friday the 13th
+    </button>
+
+
+  <button data-person="Seven Samurai">
+  Seven Samurai
+  </button>
+
+    <button data-person="Taken">
+  Taken
+  </button>
+
+      <button data-person="Up Disney">
+  Up
+  </button>
+
+
+    <button data-person="Spirited Away">
+  Spirited Away
+  </button>
+
+      <button data-person="Spiderman 3">
+  Spiderman 3
+  </button>
+
+      <button data-person="The Disaster Artist">
+  The Disaster Artist
+  </button>
+
+
+      <button data-person="The Dark Knight Rises">
+  The Dark Knight Rises
+  </button>
+
+  </div>
+
+  <div id="gifs-appear-here">
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $("button").on("click", function() {
+      var person = $(this).attr("data-person");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        person + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+        .done(function(response) {
+          var results = response.data;
+
+          for (var i = 0; i < results.length; i++) {
+            var gifDiv = $("<div class='item'>");
+
+            var rating = results[i].rating;
+
+            var p = $("<p>").text("Rating: " + rating);
+
+            var personImage = $("<img>");
+            personImage.attr("src", results[i].images.fixed_height.url);
+
+            gifDiv.prepend(p);
+            gifDiv.prepend(personImage);
+
+            $("#gifs-appear-here").prepend(gifDiv);
+          }
+        });
+    });
+  </script>
+
+</body>
+
+<style>
+body {
+  background-image:url("https://i.pinimg.com/originals/dd/76/f5/dd76f5c0e2c541944db3c1e7b914795f.jpg");
+}
+</style>
+
+
+</html>
